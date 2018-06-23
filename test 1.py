@@ -8,7 +8,7 @@ class FormattedDict(dict):
             tmpstr = ''
             if isinstance(value,dict):
                 string += '%s:\n' % (tmpstr + key)
-                while(isinstance(value,dict)):#whing to bypass recursion
+                while(isinstance(value,dict)):#thing to bypass recursion
                     tmpstr += '\t'
                     print value.items()
                     key, value = value.items()[0]#cause it is a list of tuples
