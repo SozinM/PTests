@@ -30,7 +30,7 @@ Test version format
     test versions numbers splitted by dots                      https://www.djangoproject.com/download/
 
 Test version is numbers
-    [Documentation]                                             Chech that version contains only numbers
+    [Documentation]                                             Chech that version contains only numbers (ignore LTS)
     test versions numbers                                       https://www.djangoproject.com/download/
 
 Test version logic
