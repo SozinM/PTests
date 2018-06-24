@@ -6,33 +6,35 @@ class MyLibrary():
 
     def __init__(self): #TODO: check other browsers
         self.webdriver_list = ['Firefox','Chrome','Ie','Opera']
-        self.driver = webdriver.Chrome()
+        self.total_entryes = 11
+        self.unsupported_entryes = 8
 
     def grab_page(self,url):
+        self.driver = webdriver.Chrome()
         self.driver.get(url)
 
-    def test_title(self,url):
+    def test_title(self,url,page_title):
         self.grab_page(url)
-        assert self.driver.title == 'Download Django | Django'
+        assert self.driver.title == page_title
         self.driver.close()
 
     def test_entries(self, url):
         self.grab_page(url)
         table = self.driver.find_element_by_xpath('//*[@id="download"]/div[4]/div[1]/table[1]').text.split('\n')
-        assert len(table) == 11
+        assert len(table) == self.total_entryes
         self.driver.close()
 
-    def test_main_table_class(self,url):
+    def test_main_table_class(self,url,class_name):
         self.grab_page(url)
         table_class = self.driver.find_element_by_xpath('//*[@id="download"]/div[4]/div[1]/table[1]').get_attribute('class')
-        assert table_class == 'django-supported-versions'
+        assert table_class == class_name
         self.driver.close()
 
-    def test_unsupported_class(self,url):
+    def test_unsupported_class(self, url, unsupported_class):
         self.grab_page(url)
-        for entry_number in range(4,12): #find last 8 entryes in table
+        for entry_number in range(self.total_entryes+1-self.unsupported_entryes,self.total_entryes+1): #find last 8 entryes in table
             entry = self.driver.find_element_by_xpath('//*[@id="download"]/div[4]/div[1]/table[1]/tbody/tr[%d]'%(entry_number)).get_attribute('class')
-            assert entry == 'unsupported'
+            assert entry == unsupported_class
         self.driver.close()
 
     def format_versions(self,version):
@@ -43,7 +45,7 @@ class MyLibrary():
 
     def test_versions_numbers_splitted_by_dots(self,url):
         self.grab_page(url)
-        for entry_number in range(2,12):
+        for entry_number in range(2,self.total_entryes + 1): #cause xpath runs from 1
             entry = self.driver.find_element_by_xpath(
                 '//*[@id="download"]/div[4]/div[1]/table[1]/tbody/tr[%d]'%(entry_number)).text # TODO: use more detailed XPath
             ReleaseSeries, LastRelease = self.format_versions(entry)
@@ -53,7 +55,7 @@ class MyLibrary():
 
     def test_versions_numbers(self,url):
         self.grab_page(url)
-        for entry_number in range(2, 12):
+        for entry_number in range(2, self.total_entryes + 1): #cause xpath runs from 1
             entry = self.driver.find_element_by_xpath(
                 '//*[@id="download"]/div[4]/div[1]/table[1]/tbody/tr[%d]' % (entry_number)).text # TODO: use more detailed XPath
             ReleaseSeries, LastRelease = self.format_versions(entry)
@@ -63,7 +65,7 @@ class MyLibrary():
 
     def test_versions_substring(self,url):
         self.grab_page(url)
-        for entry_number in range(2, 12):
+        for entry_number in range(2, self.total_entryes + 1): #cause xpath runs from 1
             entry = self.driver.find_element_by_xpath(
                 '//*[@id="download"]/div[4]/div[1]/table[1]/tbody/tr[%d]' % (entry_number)).text # TODO: use more detailed XPath
             ReleaseSeries, LastRelease = self.format_versions(entry)
@@ -74,7 +76,7 @@ class MyLibrary():
 
     def test_date_logic(self,url):
         self.grab_page(url)
-        for entry_number in range(2, 12):
+        for entry_number in range(2, self.total_entryes+1):  #cause xpath runs from 1
             EndOfMainstream = self.driver.find_element_by_xpath('//*[@id="download"]/div[4]/div[1]/table[1]/tbody/tr[%s]/td[3]' % (entry_number)).text
             EndOfExtended = self.driver.find_element_by_xpath('//*[@id="download"]/div[4]/div[1]/table[1]/tbody/tr[%s]/td[4]' % (entry_number)).text
             EndOfMainstream = self.string_date_to_time(EndOfMainstream)
