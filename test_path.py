@@ -57,8 +57,8 @@ class Component:
                     queue.remove(item)
 
 
-    def append_to_algorithm(self,path,outgoing_path,algorithm): #there is unknown bug TODO: fix bug
-        '''create dict with pathes'''
+    def append_to_algorithm(self,path,outgoing_path,algorithm):
+        '''create dict from pathes'''
         pathes = self.algorithm_paths.get(algorithm.__class__.__name__)
         if pathes == None:
             self.algorithm_paths.update({algorithm.__class__.__name__:
@@ -70,7 +70,7 @@ class Component:
             if existing_path == None:
                 pathes.update({self.serialize_path(path):[self.serialize_path(outgoing_path)]})
             else:
-                if not self.serialize_path(outgoing_path) in existing_path:
+                if not self.serialize_path(outgoing_path) in existing_path: #dont add duplicates
                     pathes.update({self.serialize_path(path):existing_path + [self.serialize_path(outgoing_path)]})
 
     def serialize_path(self,path):
