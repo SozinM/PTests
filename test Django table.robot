@@ -29,19 +29,23 @@ Test red-marked entryes
     test unsupported class                      ${Unsupported class}
 
 Test date logic
-    [Documentation]                             Check that date converted propertly and mainstream date < extended date
+    [Documentation]                             Check that date converted propertly and mainstream date < extended date\
+    ...                                         Tags: critical
     test date logic
 
 Test version format
-    [Documentation]                             Check that version format is number splited by dot
+    [Documentation]                             Check that version format is number splited by dot\
+    ...                                         Tags: critical
     test versions numbers splitted by dots
 
 Test version is numbers
-    [Documentation]                             Chech that version contains only numbers
+    [Documentation]                             Chech that version contains only numbers\
+    ...                                         Tags: critical
     test versions numbers
 
 Test version logic
-    [Documentation]                             Check that Release Series it is a substring of Latest Release
+    [Documentation]                             Check that Release Series it is a substring of Latest Release\
+    ...                                         Tags: critical
     test versions substring
 
 
