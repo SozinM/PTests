@@ -13,7 +13,7 @@ ${Unsupported class}                            unsupported
 
 *** Test Cases ***
 User can open page
-    [Documentation]                             Check Django site avialable
+    [Documentation]                             Check Django site avialable NOTE: This test could be removed
     test title                                  ${Site title}
 
 Table has entries
