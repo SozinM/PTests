@@ -51,7 +51,7 @@ Test version logic
 
 *** Keywords ***
 Open page
-    open browser  https://www.djangoproject.com/download/
+    open browser                                ${Tagret site}
 
 Close page
     close browser
