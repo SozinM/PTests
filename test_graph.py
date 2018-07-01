@@ -8,33 +8,39 @@ class GraphDestination():
 
     def __init__(self,dictionary,initial_edge):
         self.graph = dictionary.copy()
-        self.initial_edge = initial_edge
         self.checked_edges = set()
         self.reachable_edges = set()
-        self.reachable_edges.add(initial_edge)
         self.check_reachable_edges(initial_edge)
 
-    def check_reachable_edges(self,edge):  #TODO remove recursion
-        if not isinstance(edge,int):
+    def check_reachable_edges(self,edge):
+        if not isinstance(edge,int): #check there is edge
             return
-        self.checked_edges.add(edge)
-        set_of_edges = self.graph.get(edge)
-        if set_of_edges == None:  #Edge is not declared
-            return
-        set_of_edges = set(set_of_edges)
-        self.reachable_edges.update(set_of_edges)
-        for item in set_of_edges:
-            if item not in self.checked_edges:
-                self.check_reachable_edges(item)  #TODO remove recursion
+        queue = [edge]
+        while(queue):
+            for item in queue:
+                if item in self.checked_edges:
+                    queue.remove(item)
+                    continue
+                queue.remove(item)
+                self.checked_edges.add(item)
+                self.reachable_edges.add(item)
+                set_of_edges = self.graph.get(item)
+                if set_of_edges == None:  #Edge is not declared
+                    continue
+                queue.extend(set_of_edges)
+        print self
+        #return self.checked_edges
+
+
+
 
 def main():
     data = {
         1: [2, 3],
         2: [3, 4],
-        4: [1]
+        4: [1],
     }
-    Graph = GraphDestination(data,1)
-    print Graph
+    GraphDestination(data,1)
 
 if __name__ == '__main__' : main()
 
