@@ -32,7 +32,7 @@ class Component:
         output.update({'Potential':list(set(potentialy_tmp_list))}) #remove duplications
         return output
 
-    def check_pathes(self,source_object):
+    def check_pathes(self,source_object): #TODO: escape from complex recursion
         for alghoritm in self.algorithm_list:
             queue = [source_object]
             while(queue):
@@ -46,7 +46,7 @@ class Component:
                     else:
                         shorted_item = item #we need original item onward
                     for callable_item in alghoritm(shorted_item):
-                        if callable_item == shorted_item: #to evade recursion
+                        if callable_item == shorted_item: #to evade loop 
                             continue
                         if isinstance(item,list):
                             self.append_to_algorithm(item,item + [callable_item], alghoritm) #item + callable item = output pathes
